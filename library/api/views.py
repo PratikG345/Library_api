@@ -3,13 +3,12 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 from .serializer import BookSerializer
-from django.db.models import Q
 from .models import Book
 
 # Create your views here.
 @api_view(['GET'])
 def get_book(req):
-    book = Book.objects.filter(Q(available=True) | Q(published_year=1989))
+    book = Book.objects.all()
     serializer = BookSerializer(book, many=True)
     
     return Response(serializer.data)
